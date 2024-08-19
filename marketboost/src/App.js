@@ -7,12 +7,27 @@ import Cafe from './pages/Cafe';
 import Food from './pages/Food';
 import Beauty from './pages/Beauty';
 import Enter from './pages/Enter';
+import {Status, Wrapper} from "@googlemaps/react-wrapper";
 
 import { BrowserRouter,Routes, Route, Link } from "react-router-dom";
+
+const render = (status) => {
+  switch (status) {
+    case Status.LOADING:
+      return <>로딩중...</>;
+    case Status.FAILURE:
+      return <>에러 발생</>;
+    case Status.SUCCESS:
+      return <>로드 성공</>;
+    default:
+      return null;
+  }
+};
 
 
 function App() {
   return (
+    <Wrapper apiKey="AIzaSyDnc8Ff7lGdmiLBiIRKDhVRdKu8s9dzVpw" render={render}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MenuSelectPage />} />
@@ -25,6 +40,7 @@ function App() {
         <Route path="/category/four" element={<Enter />} /> 
       </Routes>
     </BrowserRouter>
+    </Wrapper>
   );
 }
 
