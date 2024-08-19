@@ -1,0 +1,74 @@
+.categorybox {
+    
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    transition: transform .2s;
+    
+}
+
+.categorybox:hover {
+    transform: scale(1.1);
+  }
+
+.categorymain {
+    background: linear-gradient(135deg, #f0f5ff, #e1e9f9);
+    height: 100vh;
+    position: relative;
+}
+
+.categoryname {
+    position: absolute;
+    top:60%;
+    font-size: 25px;
+}
+
+.categoryimg {
+    position: absolute;
+    top: 30%;
+    width: 70px;
+    height: 70px;
+    left: 39%;
+}
+
+.one {
+    
+    top: 32%;
+    left: 5%;
+    cursor: pointer;
+}
+
+.two {
+    
+    top: 32%;
+    left: 29%;
+    cursor: pointer;
+    
+}
+
+.three {
+    
+    top: 32%;
+    left: 53%;
+    cursor: pointer;
+    
+}
+
+.four {
+    
+    top: 32%;
+    left: 77%;
+    cursor: pointer;
+    
+}
+
+.categorytext {
+    position: absolute;
+    top: 10%;
+    left: 45%;
+}
