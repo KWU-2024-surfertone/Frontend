@@ -17,7 +17,7 @@ const colors = [
       index = (index + 1) % colors.length; // 다음 색상으로 이동
       color = colors[index];
     }
-  
+
     usedColors.set(color, category); // 색상 사용
     return color;
   };

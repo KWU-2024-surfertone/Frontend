@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import GoogleMap from '../components/GoogleMap';
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import { loadGoogleMapScript, initializeMap, updateMarkersVisibility } from './utils/googleMaps';
@@ -8,7 +7,7 @@ import 'marketboost/src/css/food.css';
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, BarElement, CategoryScale, LinearScale);
 
-const Cafe = () => {
+const Food = () => {
   const [coordinatesByCategory, setCoordinatesByCategory] = useState({});
   const [chartData, setChartData] = useState({
     labels: [],
@@ -24,8 +23,6 @@ const Cafe = () => {
     datasets: [{
       label: '개수',
       data: [],
-      backgroundColor: [],
-      borderColor: [],
       borderWidth: 1,
     }],
   });
@@ -33,15 +30,16 @@ const Cafe = () => {
   const mapRef = useRef(null);
   const chartContainerRef = useRef(null);
 
-  useEffect(() => {
-    const initMap = async () => {
-      await loadCoordinates();
-      initializeMap(coordinatesByCategory, mapRef.current);
-    };
+  const initMap = async () => {
+    await loadCoordinates();
+    initializeMap(coordinatesByCategory, mapRef.current);
+  };
 
+  useEffect(() => {
     loadGoogleMapScript()
       .then(() => {
-        window.initMap = initMap;
+        // Google Maps API가 로드되었을 때 initMap을 실행합니다.
+        initMap();
       })
       .catch(console.error);
   }, []);
@@ -69,7 +67,6 @@ const Cafe = () => {
     if (chartElement.length > 0) {
       const index = chartElement[0].index;
       const category = chartData.labels[index];
-      console.log('Category:', category);
       updateMarkersVisibility(category);
     }
   };
@@ -78,7 +75,6 @@ const Cafe = () => {
     if (chartElement.length > 0) {
       const index = chartElement[0].index;
       const category = chartData.labels[index];
-      console.log('Category:', category);
       updateMarkersVisibility(category);
     }
   };
@@ -87,7 +83,6 @@ const Cafe = () => {
     if (chartElement.length > 0) {
       const index = chartElement[0].index;
       const category = barChartData.labels[index];
-      console.log('Category:', category);
       updateMarkersVisibility(category);
     }
   };
@@ -96,7 +91,6 @@ const Cafe = () => {
     if (chartElement.length > 0) {
       const index = chartElement[0].index;
       const category = barChartData.labels[index];
-      console.log('Category:', category);
       updateMarkersVisibility(category);
     }
   };
@@ -106,7 +100,6 @@ const Cafe = () => {
 
     if (chartContainer && !chartContainer.contains(event.target)) {
       // 마우스가 차트 외부로 이동했을 때 모든 마커를 표시
-      console.log('Mouse is outside the chart container');
       updateMarkersVisibility('all');
     }
   };
@@ -150,8 +143,8 @@ const Cafe = () => {
                   },
                 },
               },
-              onHover: (event, chartElement) => handlePieChartHover(event, chartElement),
-              onClick: (event, chartElement) => handlePieChartClick(event, chartElement),
+              onHover: handlePieChartHover,
+              onClick: handlePieChartClick,
             }}
           />
         </div>
@@ -173,8 +166,8 @@ const Cafe = () => {
                   },
                 },
               },
-              onHover: (event, chartElement) => handleBarChartHover(event, chartElement),
-              onClick: (event, chartElement) => handleBarChartClick(event, chartElement),
+              onHover: handleBarChartHover,
+              onClick: handleBarChartClick,
             }}
           />
         </div>
@@ -183,4 +176,4 @@ const Cafe = () => {
   );
 };
 
-export default Cafe;
+export default Food;

@@ -30,15 +30,16 @@ const Food = () => {
   const mapRef = useRef(null);
   const chartContainerRef = useRef(null);
 
-  useEffect(() => {
-    const initMap = async () => {
-      await loadCoordinates();
-      initializeMap(coordinatesByCategory, mapRef.current);
-    };
+  const initMap = async () => {
+    await loadCoordinates();
+    initializeMap(coordinatesByCategory, mapRef.current);
+  };
 
+  useEffect(() => {
     loadGoogleMapScript()
       .then(() => {
-        window.initMap = initMap;
+        // Google Maps API가 로드되었을 때 initMap을 실행합니다.
+        initMap();
       })
       .catch(console.error);
   }, []);
@@ -66,7 +67,6 @@ const Food = () => {
     if (chartElement.length > 0) {
       const index = chartElement[0].index;
       const category = chartData.labels[index];
-      console.log('Category:', category);
       updateMarkersVisibility(category);
     }
   };
@@ -75,7 +75,6 @@ const Food = () => {
     if (chartElement.length > 0) {
       const index = chartElement[0].index;
       const category = chartData.labels[index];
-      console.log('Category:', category);
       updateMarkersVisibility(category);
     }
   };
@@ -84,7 +83,6 @@ const Food = () => {
     if (chartElement.length > 0) {
       const index = chartElement[0].index;
       const category = barChartData.labels[index];
-      console.log('Category:', category);
       updateMarkersVisibility(category);
     }
   };
@@ -93,7 +91,6 @@ const Food = () => {
     if (chartElement.length > 0) {
       const index = chartElement[0].index;
       const category = barChartData.labels[index];
-      console.log('Category:', category);
       updateMarkersVisibility(category);
     }
   };
@@ -103,7 +100,6 @@ const Food = () => {
 
     if (chartContainer && !chartContainer.contains(event.target)) {
       // 마우스가 차트 외부로 이동했을 때 모든 마커를 표시
-      console.log('Mouse is outside the chart container');
       updateMarkersVisibility('all');
     }
   };
