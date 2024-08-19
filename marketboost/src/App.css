@@ -1,0 +1,49 @@
+.box {
+  width: 1000px;
+  height: 500px;
+  display: flex;
+  position: relative;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.selectbuttonbox {
+  width: 800px;
+  height: 250px;
+  position: absolute;
+  top: 30%;
+  left: 52%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+}
+
+.circle {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 50px;
+  margin-left: 20px;
+  background-color: #e1e9f9; /* 연한 파란색 배경 */
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #f0f5ff, #e1e9f9);
+}
+
+.selectbutton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
