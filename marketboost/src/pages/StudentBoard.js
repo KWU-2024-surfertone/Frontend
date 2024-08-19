@@ -1,9 +1,10 @@
 import React from 'react'
+import PostForm from '../components/PostFrom'
 
 const StudentBoard = () => {
   return (
     <div>
-      hihihi
+      <PostForm />
     </div>
   )
 }
