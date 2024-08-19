@@ -23,13 +23,12 @@ const Food = () => {
     datasets: [{
       label: '개수',
       data: [],
-      backgroundColor: [],
-      borderColor: [],
       borderWidth: 1,
     }],
   });
 
   const mapRef = useRef(null);
+  const chartContainerRef = useRef(null);
 
   useEffect(() => {
     const initMap = async () => {
@@ -99,6 +98,26 @@ const Food = () => {
     }
   };
 
+  const handleMouseMove = (event) => {
+    const chartContainer = chartContainerRef.current;
+
+    if (chartContainer && !chartContainer.contains(event.target)) {
+      // 마우스가 차트 외부로 이동했을 때 모든 마커를 표시
+      console.log('Mouse is outside the chart container');
+      updateMarkersVisibility('all');
+    }
+  };
+
+  useEffect(() => {
+    // 차트 외부에 마우스 이동 시 전체 마커 표시 핸들러 등록
+    document.addEventListener('mousemove', handleMouseMove);
+
+    // 클린업 함수로 이벤트 리스너 제거
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
       <div style={{ flex: 2, padding: '10px', display: 'flex', flexDirection: 'column' }}>
@@ -109,7 +128,7 @@ const Food = () => {
           <p>지도를 로딩하는 중입니다...</p>
         </div>
       </div>
-      <div style={{ flex: 1, padding: '10px', display: 'flex', flexDirection: 'column' }}>
+      <div ref={chartContainerRef} style={{ flex: 1, padding: '10px', display: 'flex', flexDirection: 'column' }}>
         <div style={{ width: '100%', height: '50%' }}>
           <Pie
             data={chartData}
@@ -128,8 +147,8 @@ const Food = () => {
                   },
                 },
               },
-              onHover: (event, chartElement) => handlePieChartHover(event, chartElement),
-              onClick: (event, chartElement) => handlePieChartClick(event, chartElement),
+              onHover: handlePieChartHover,
+              onClick: handlePieChartClick,
             }}
           />
         </div>
@@ -151,8 +170,8 @@ const Food = () => {
                   },
                 },
               },
-              onHover: (event, chartElement) => handleBarChartHover(event, chartElement),
-              onClick: (event, chartElement) => handleBarChartClick(event, chartElement),
+              onHover: handleBarChartHover,
+              onClick: handleBarChartClick,
             }}
           />
         </div>
